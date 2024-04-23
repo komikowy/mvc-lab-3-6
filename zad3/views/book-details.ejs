@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body>
+    <h1><%= book.title %> by <%= book.author %></h1>
+    <p>Year: <%= book.year %></p>
+    <p>Status: <%= book.available ? "Available" : "Borrowed" %></p>
+    <form action="<%= book.available ? '/books/borrow/' + book.id : '/books/return/' + book.id %>" method="POST">
+        <% if (book.available) { %>
+            <button type="submit">Borrow Book</button>
+        <% } else if (didUserBorrowTheBook) { %>
+            <button type="submit">Return Book</button>
+        <% } else { %>
+            <button type="submit" disabled>Borrow Book</button>
+        <% } %>
+        <% if (!book.available && didUserBorrowTheBook) { %>
+            <button type="submit">Return Book</button>
+        <% } %>
+    </form>
+    <a href="/">Back to Home</a>
+</body>
+</html>
